@@ -27,7 +27,7 @@ class SynchronizeViewController: UIViewController {
             minInfusionIntervalTextField.text = String(format: "%.2f", infusionConfiguration!.minInfusionInterval)
             maxSingleDosageTextField.text = String(format: "%.2f", infusionConfiguration!.maxSingleDosage)
             maxDailyDosageTextField.text = String(format: "%.2f", infusionConfiguration!.maxDailyDosage)
-            // Enable synchronize button here?
+            textFieldChanged(0)
         }
     }
     
@@ -63,6 +63,7 @@ class SynchronizeViewController: UIViewController {
             Double(maxSingleDosageTextField.text ?? "na") != nil &&
             Double(maxDailyDosageTextField.text ?? "na") != nil
         else {inputAvailable = false; return}
+        // Apply more complex logics to check the input here
         inputAvailable = true
     }
     

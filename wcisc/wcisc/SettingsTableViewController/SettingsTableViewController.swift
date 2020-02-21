@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class SettingsTableViewController: UITableViewController {
 
@@ -16,15 +17,24 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         deviceNameTextField.text = UserDefaults.standard.string(forKey: "deviceName")
-        // Call textFieldDidChanged here?
+        textFieldDidChanged(0)
     }
     
     @IBAction func textFieldDidChanged(_ sender: Any) {
-        connectButton.isEnabled = deviceNameTextField.text != nil
+        connectButton.isEnabled = (deviceNameTextField.text ?? "").count != 0
     }
     
     @IBAction func connectButtonTapped(_ sender: UIButton) {
+        SVProgressHUD.show(withStatus: "Connecting")
         UserDefaults.standard.set(deviceNameTextField.text!, forKey: "deviceName")
         // Device connection code here
+        SVProgressHUD.showSuccess(withStatus: "Connected")
+    }
+}
+
+extension SettingsTableViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
