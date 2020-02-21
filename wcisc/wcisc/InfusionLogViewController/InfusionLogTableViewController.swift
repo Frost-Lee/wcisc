@@ -21,6 +21,9 @@ class InfusionLogTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(fetchInfusionLogs), for: .valueChanged)
+        loadInfusionLogs()
     }
     
     private func loadInfusionLogs() {
@@ -28,6 +31,11 @@ class InfusionLogTableViewController: UITableViewController {
             guard error == nil else {SVProgressHUD.showError(withStatus: "Data Storage Error");return}
             self.infusionLogs = logs
         }
+    }
+    
+    @objc private func fetchInfusionLogs() {
+        // Refresh code here
+        refreshControl?.endRefreshing()
     }
 
 }
@@ -59,5 +67,12 @@ extension InfusionLogTableViewController {
     ) {
         let cell = cell as! InfusionLogTableViewCell
         cell.infusionLog = infusionLogs?[indexPath.row]
+    }
+    
+    override func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
+        return 64.0
     }
 }

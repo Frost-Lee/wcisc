@@ -18,6 +18,6 @@ extension Date {
 
 extension Double {
     func unitString() -> String {
-        return String(format: "%.2f", self) + "unit"
+        return String(format: "%.2f", self) + " unit"
     }
 }
