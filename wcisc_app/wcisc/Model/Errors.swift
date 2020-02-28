@@ -12,3 +12,8 @@ enum DataStorageError: Error {
     case saveFailure
     case fetchFailure
 }
+
+enum BluetoothError: Error {
+    case centralNotAvailable
+    case peripheralNotFound
+}
