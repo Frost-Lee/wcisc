@@ -14,6 +14,7 @@ enum DataStorageError: Error {
 }
 
 enum BluetoothError: Error {
-    case centralNotAvailable
-    case peripheralNotFound
+    case managerBusy
+    case operationFailure
+    case deviceNotConnected
 }

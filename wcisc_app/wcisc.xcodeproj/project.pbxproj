@@ -20,6 +20,7 @@
 		272CF55E240043AD0069227B /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CF55D240043AD0069227B /* Errors.swift */; };
 		273EC21123FDDDA3006D6042 /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EC21023FDDDA3006D6042 /* Structures.swift */; };
 		273EC21323FDF32A006D6042 /* SynchronizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EC21223FDF32A006D6042 /* SynchronizeViewController.swift */; };
+		27DBDE6824098AC4005700CF /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DBDE6724098AC4005700CF /* BluetoothManager.swift */; };
 		27E66EC523EB1F32009E4327 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E66EC423EB1F32009E4327 /* AppDelegate.swift */; };
 		27E66EC723EB1F32009E4327 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E66EC623EB1F32009E4327 /* SceneDelegate.swift */; };
 		27E66ECC23EB1F32009E4327 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27E66ECA23EB1F32009E4327 /* Main.storyboard */; };
@@ -63,6 +64,7 @@
 		272CF55D240043AD0069227B /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		273EC21023FDDDA3006D6042 /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
 		273EC21223FDF32A006D6042 /* SynchronizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizeViewController.swift; sourceTree = "<group>"; };
+		27DBDE6724098AC4005700CF /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		27E66EC123EB1F32009E4327 /* wcisc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wcisc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E66EC423EB1F32009E4327 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27E66EC623EB1F32009E4327 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				272CF55C240043970069227B /* DataModel */,
+				27DBDE6724098AC4005700CF /* BluetoothManager.swift */,
 				272CF54E24003B6E0069227B /* Extensions.swift */,
 				272CF55D240043AD0069227B /* Errors.swift */,
 			);
@@ -472,6 +475,7 @@
 			files = (
 				273EC21123FDDDA3006D6042 /* Structures.swift in Sources */,
 				27160E1F23FEE8B7000CEF54 /* InfusionLogTableViewCell.swift in Sources */,
+				27DBDE6824098AC4005700CF /* BluetoothManager.swift in Sources */,
 				272CF5592400414F0069227B /* ManagedInfusionConfiguration+CoreDataProperties.swift in Sources */,
 				272CF55A2400414F0069227B /* ManagedInfusionLog+CoreDataClass.swift in Sources */,
 				273EC21323FDF32A006D6042 /* SynchronizeViewController.swift in Sources */,
