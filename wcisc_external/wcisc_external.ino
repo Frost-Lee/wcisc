@@ -65,6 +65,20 @@
 SoftwareSerial bluefruitSS = SoftwareSerial(BLUEFRUIT_SWUART_TXD_PIN, BLUEFRUIT_SWUART_RXD_PIN);
 Adafruit_BluefruitLE_UART ble(bluefruitSS, BLUEFRUIT_UART_MODE_PIN, BLUEFRUIT_UART_CTS_PIN, BLUEFRUIT_UART_RTS_PIN);
 
+enum Device_State {
+  Not_Initialized,
+  Initialized,
+  Injecting
+};
+
+enum Controller_Signal {
+  Configuration,
+  Start,
+  Stop
+};
+
+enum Device_State deviceState = Not_Initialized;
+
 // A small helper
 void error(const __FlashStringHelper*err) {
   Serial.println(err);
@@ -79,6 +93,7 @@ void error(const __FlashStringHelper*err) {
 /**************************************************************************/
 void setup(void) {
   basicSetup();
+  deviceState = Not_Initialized;
 }
 
 /**************************************************************************/
@@ -87,17 +102,16 @@ void setup(void) {
 */
 /**************************************************************************/
 void loop(void) {
-  char n, inputs[BUFSIZE+1];
-  
   if (Serial.available()) {
+    char n, inputs[BUFSIZE+1];
     n = Serial.readBytes(inputs, BUFSIZE);
     inputs[n] = '\0';
     ble.print(inputs);
+  } else if (ble.available()) {
+    char inputBuffer[BUFSIZE];
+    readInput(inputBuffer, BUFSIZE);
+    Serial.print(inputBuffer);
   }
-
-  char inputBuffer[BUFSIZE];
-  readInput(inputBuffer, BUFSIZE);
-  Serial.print(inputBuffer);
 }
 
 
@@ -129,7 +143,9 @@ void basicSetup() {
 void readInput(char* buffer, int bufferSize) {
   int inputLength = 0;
   while (ble.available() && inputLength < bufferSize - 1) {
-    buffer[inputLength ++] = ble.read();
+    char inputChar = ble.read();
+    Serial.println(inputChar);
+    buffer[inputLength ++] = inputChar;
   }
   buffer[inputLength] = '\0';
   // check code here

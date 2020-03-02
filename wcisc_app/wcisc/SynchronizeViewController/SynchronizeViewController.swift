@@ -36,6 +36,15 @@ class SynchronizeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadInfusionConfiguration()
+        let bluetoothManager = BluetoothManager.shared
+        bluetoothManager.connect(deviceName: "Adafruit Bluefruit LE") { error in
+            guard error == nil else {print("connection error");return}
+            print("connected")
+            bluetoothManager.sendStopSignal() { error in
+                guard error == nil else {print("stop signal error");return}
+                print("stopped")
+            }
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
