@@ -6,13 +6,14 @@ This repository is for the mobile application part for the project Wirelessly Co
 
 ## App - Hardware Communication
 
-The application and the external device adops the following messages for communication.
+The application and the external device adops the following messages for communication. Due to the buffer size of the characteristic of the external device, the length of the string used for communication should be less than 20.
 
 | Description                             | Format                                                       |
 | --------------------------------------- | ------------------------------------------------------------ |
-| app -> configuration -> external device | `config:<min infusion interval>;<max single dosage>;<max daily dosage>` |
-| app -> start signal -> external device  | `start:`                                                     |
-| external device -> infusion log -> app  | `log:<dosage>;<status>`                                      |
+| app -> configuration -> external device | `c:<min infusion interval>;<max single dosage>;<max daily dosage>` |
+| app -> start signal -> external device  | `b:`                                                         |
+| app -> stop signal -> external device   | `s:`                                                         |
+| external device -> infusion log -> app  | `l:<dosage>;<status>`                                        |
 
 ## To Do List
 
