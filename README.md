@@ -8,12 +8,20 @@ This repository is for the mobile application part for the project Wirelessly Co
 
 The application and the external device adops the following messages for communication. Due to the buffer size of the characteristic of the external device, the length of the string used for communication should be less than 20.
 
-| Description                             | Format                                                       |
-| --------------------------------------- | ------------------------------------------------------------ |
-| app -> configuration -> external device | `c:<min infusion interval>;<max single dosage>;<max daily dosage>` |
-| app -> start signal -> external device  | `b:`                                                         |
-| app -> stop signal -> external device   | `s:`                                                         |
-| external device -> infusion log -> app  | `l:<dosage>;<status>`                                        |
+| Description                                        | Format                                                       |
+| -------------------------------------------------- | ------------------------------------------------------------ |
+| app -> configuration -> external device            | `c:<min infusion interval>;<max single dosage>;<max daily dosage>` |
+| app -> start signal (automatic) -> external device | `a:<dosage>`                                                 |
+| app -> start signal (manual) -> external device    | `i:<dosage>`                                                 |
+| app -> stop signal -> external device              | `s:`                                                         |
+| external device -> infusion log -> app             | `l:<dosage>;<status>`                                        |
+
+The `status` given by external device have the following meaning:
+
+- `0`: injection done
+- `1`: external device not aligned
+- `2`: external device cannot trigger injection
+- `3`: pump needs refill
 
 ## To Do List
 
