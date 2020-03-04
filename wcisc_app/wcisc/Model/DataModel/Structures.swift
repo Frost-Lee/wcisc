@@ -31,10 +31,17 @@ enum InfusionStatus: Int {
     }
 }
 
-struct InfusionConfiguration {
-    var minInfusionInterval: Double
-    var maxSingleDosage: Double
+struct InfusionSafetyConfiguration {
     var maxDailyDosage: Double
+}
+
+struct AutoInfusionConfiguration {
+    /// The start time of the auto infusion.
+    var startTime: Date
+    /// The time interval of the infusion, in minute.
+    var timeInterval: TimeInterval
+    /// The dosage of the infusion, in number of pushes.
+    var dosage: Double
 }
 
 struct InfusionLog {

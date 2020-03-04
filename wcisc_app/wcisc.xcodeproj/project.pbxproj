@@ -9,17 +9,19 @@
 /* Begin PBXBuildFile section */
 		0D2C05A091552E5A53DD66B3 /* Pods_wciscTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38901C7F8DD1440B7DC83D87 /* Pods_wciscTests.framework */; };
 		270DA9FC24006B7900E41C3E /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270DA9FB24006B7900E41C3E /* SettingsTableViewController.swift */; };
+		27140829240F014100CE2C66 /* InformationPanelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27140828240F014100CE2C66 /* InformationPanelTableViewController.swift */; };
+		2714082B240F067300CE2C66 /* InfusionStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2714082A240F067300CE2C66 /* InfusionStartViewController.swift */; };
+		2714082D240F068D00CE2C66 /* InfusionConfigurationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2714082C240F068D00CE2C66 /* InfusionConfigurationTableViewController.swift */; };
 		27160E1F23FEE8B7000CEF54 /* InfusionLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27160E1E23FEE8B7000CEF54 /* InfusionLogTableViewCell.swift */; };
 		272CF54F24003B6E0069227B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CF54E24003B6E0069227B /* Extensions.swift */; };
 		272CF55124003CD80069227B /* InfusionLogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CF55024003CD80069227B /* InfusionLogTableViewController.swift */; };
 		272CF55324003D270069227B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CF55224003D270069227B /* DataManager.swift */; };
-		272CF5582400414F0069227B /* ManagedInfusionConfiguration+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CF5542400414F0069227B /* ManagedInfusionConfiguration+CoreDataClass.swift */; };
-		272CF5592400414F0069227B /* ManagedInfusionConfiguration+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CF5552400414F0069227B /* ManagedInfusionConfiguration+CoreDataProperties.swift */; };
 		272CF55A2400414F0069227B /* ManagedInfusionLog+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CF5562400414F0069227B /* ManagedInfusionLog+CoreDataClass.swift */; };
 		272CF55B2400414F0069227B /* ManagedInfusionLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CF5572400414F0069227B /* ManagedInfusionLog+CoreDataProperties.swift */; };
 		272CF55E240043AD0069227B /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CF55D240043AD0069227B /* Errors.swift */; };
 		273EC21123FDDDA3006D6042 /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EC21023FDDDA3006D6042 /* Structures.swift */; };
-		273EC21323FDF32A006D6042 /* SynchronizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EC21223FDF32A006D6042 /* SynchronizeViewController.swift */; };
+		273EC21323FDF32A006D6042 /* InfusionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EC21223FDF32A006D6042 /* InfusionViewController.swift */; };
+		2772CE43240EB4A900BD9BD2 /* WCISCController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2772CE42240EB4A900BD9BD2 /* WCISCController.swift */; };
 		27DBDE6824098AC4005700CF /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DBDE6724098AC4005700CF /* BluetoothManager.swift */; };
 		27E66EC523EB1F32009E4327 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E66EC423EB1F32009E4327 /* AppDelegate.swift */; };
 		27E66EC723EB1F32009E4327 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E66EC623EB1F32009E4327 /* SceneDelegate.swift */; };
@@ -53,17 +55,19 @@
 /* Begin PBXFileReference section */
 		19071C48FF2C6C08A3EAB3F0 /* Pods-wciscUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wciscUITests.release.xcconfig"; path = "Target Support Files/Pods-wciscUITests/Pods-wciscUITests.release.xcconfig"; sourceTree = "<group>"; };
 		270DA9FB24006B7900E41C3E /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		27140828240F014100CE2C66 /* InformationPanelTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationPanelTableViewController.swift; sourceTree = "<group>"; };
+		2714082A240F067300CE2C66 /* InfusionStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfusionStartViewController.swift; sourceTree = "<group>"; };
+		2714082C240F068D00CE2C66 /* InfusionConfigurationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfusionConfigurationTableViewController.swift; sourceTree = "<group>"; };
 		27160E1E23FEE8B7000CEF54 /* InfusionLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfusionLogTableViewCell.swift; sourceTree = "<group>"; };
 		272CF54E24003B6E0069227B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		272CF55024003CD80069227B /* InfusionLogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfusionLogTableViewController.swift; sourceTree = "<group>"; };
 		272CF55224003D270069227B /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		272CF5542400414F0069227B /* ManagedInfusionConfiguration+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedInfusionConfiguration+CoreDataClass.swift"; sourceTree = "<group>"; };
-		272CF5552400414F0069227B /* ManagedInfusionConfiguration+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedInfusionConfiguration+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		272CF5562400414F0069227B /* ManagedInfusionLog+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedInfusionLog+CoreDataClass.swift"; sourceTree = "<group>"; };
 		272CF5572400414F0069227B /* ManagedInfusionLog+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedInfusionLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		272CF55D240043AD0069227B /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		273EC21023FDDDA3006D6042 /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
-		273EC21223FDF32A006D6042 /* SynchronizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizeViewController.swift; sourceTree = "<group>"; };
+		273EC21223FDF32A006D6042 /* InfusionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfusionViewController.swift; sourceTree = "<group>"; };
+		2772CE42240EB4A900BD9BD2 /* WCISCController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCISCController.swift; sourceTree = "<group>"; };
 		27DBDE6724098AC4005700CF /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		27E66EC123EB1F32009E4327 /* wcisc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wcisc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E66EC423EB1F32009E4327 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -127,20 +131,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		270DA9FA24006B5600E41C3E /* SettingsTableViewController */ = {
+		270DA9FA24006B5600E41C3E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				270DA9FB24006B7900E41C3E /* SettingsTableViewController.swift */,
 			);
-			path = SettingsTableViewController;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		272CF55C240043970069227B /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
 				27E66ECD23EB1F32009E4327 /* wcisc.xcdatamodeld */,
-				272CF5542400414F0069227B /* ManagedInfusionConfiguration+CoreDataClass.swift */,
-				272CF5552400414F0069227B /* ManagedInfusionConfiguration+CoreDataProperties.swift */,
 				272CF5562400414F0069227B /* ManagedInfusionLog+CoreDataClass.swift */,
 				272CF5572400414F0069227B /* ManagedInfusionLog+CoreDataProperties.swift */,
 				272CF55224003D270069227B /* DataManager.swift */,
@@ -154,27 +156,31 @@
 			children = (
 				272CF55C240043970069227B /* DataModel */,
 				27DBDE6724098AC4005700CF /* BluetoothManager.swift */,
+				2772CE42240EB4A900BD9BD2 /* WCISCController.swift */,
 				272CF54E24003B6E0069227B /* Extensions.swift */,
 				272CF55D240043AD0069227B /* Errors.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		27DAAC0523FEDE6600091C4A /* SynchronizeViewController */ = {
+		27DAAC0523FEDE6600091C4A /* Infusion */ = {
 			isa = PBXGroup;
 			children = (
-				273EC21223FDF32A006D6042 /* SynchronizeViewController.swift */,
+				273EC21223FDF32A006D6042 /* InfusionViewController.swift */,
+				27140828240F014100CE2C66 /* InformationPanelTableViewController.swift */,
+				2714082A240F067300CE2C66 /* InfusionStartViewController.swift */,
+				2714082C240F068D00CE2C66 /* InfusionConfigurationTableViewController.swift */,
 			);
-			path = SynchronizeViewController;
+			path = Infusion;
 			sourceTree = "<group>";
 		};
-		27DAAC0623FEDE7C00091C4A /* InfusionLogViewController */ = {
+		27DAAC0623FEDE7C00091C4A /* Log */ = {
 			isa = PBXGroup;
 			children = (
 				272CF55024003CD80069227B /* InfusionLogTableViewController.swift */,
 				27160E1E23FEE8B7000CEF54 /* InfusionLogTableViewCell.swift */,
 			);
-			path = InfusionLogViewController;
+			path = Log;
 			sourceTree = "<group>";
 		};
 		27E66EB823EB1F32009E4327 = {
@@ -206,9 +212,9 @@
 				27E66EC623EB1F32009E4327 /* SceneDelegate.swift */,
 				27E66ECA23EB1F32009E4327 /* Main.storyboard */,
 				27E66ED223EB1F3A009E4327 /* LaunchScreen.storyboard */,
-				27DAAC0523FEDE6600091C4A /* SynchronizeViewController */,
-				27DAAC0623FEDE7C00091C4A /* InfusionLogViewController */,
-				270DA9FA24006B5600E41C3E /* SettingsTableViewController */,
+				27DAAC0523FEDE6600091C4A /* Infusion */,
+				27DAAC0623FEDE7C00091C4A /* Log */,
+				270DA9FA24006B5600E41C3E /* Settings */,
 				27E66ED023EB1F3A009E4327 /* Assets.xcassets */,
 				27E66ED523EB1F3A009E4327 /* Info.plist */,
 				273EC20F23FDDD80006D6042 /* Model */,
@@ -474,21 +480,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				273EC21123FDDDA3006D6042 /* Structures.swift in Sources */,
+				27140829240F014100CE2C66 /* InformationPanelTableViewController.swift in Sources */,
 				27160E1F23FEE8B7000CEF54 /* InfusionLogTableViewCell.swift in Sources */,
 				27DBDE6824098AC4005700CF /* BluetoothManager.swift in Sources */,
-				272CF5592400414F0069227B /* ManagedInfusionConfiguration+CoreDataProperties.swift in Sources */,
 				272CF55A2400414F0069227B /* ManagedInfusionLog+CoreDataClass.swift in Sources */,
-				273EC21323FDF32A006D6042 /* SynchronizeViewController.swift in Sources */,
-				272CF5582400414F0069227B /* ManagedInfusionConfiguration+CoreDataClass.swift in Sources */,
+				273EC21323FDF32A006D6042 /* InfusionViewController.swift in Sources */,
 				272CF55E240043AD0069227B /* Errors.swift in Sources */,
+				2714082D240F068D00CE2C66 /* InfusionConfigurationTableViewController.swift in Sources */,
 				272CF55124003CD80069227B /* InfusionLogTableViewController.swift in Sources */,
 				272CF54F24003B6E0069227B /* Extensions.swift in Sources */,
 				27E66EC523EB1F32009E4327 /* AppDelegate.swift in Sources */,
 				272CF55B2400414F0069227B /* ManagedInfusionLog+CoreDataProperties.swift in Sources */,
+				2714082B240F067300CE2C66 /* InfusionStartViewController.swift in Sources */,
 				270DA9FC24006B7900E41C3E /* SettingsTableViewController.swift in Sources */,
 				27E66EC723EB1F32009E4327 /* SceneDelegate.swift in Sources */,
 				272CF55324003D270069227B /* DataManager.swift in Sources */,
 				27E66ECF23EB1F32009E4327 /* wcisc.xcdatamodeld in Sources */,
+				2772CE43240EB4A900BD9BD2 /* WCISCController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

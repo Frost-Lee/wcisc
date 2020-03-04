@@ -14,6 +14,7 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var deviceNameTextField: UITextField!
     @IBOutlet weak var connectButton: UIButton!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         deviceNameTextField.text = UserDefaults.standard.string(forKey: "deviceName")
@@ -26,10 +27,17 @@ class SettingsTableViewController: UITableViewController {
     
     @IBAction func connectButtonTapped(_ sender: UIButton) {
         SVProgressHUD.show(withStatus: "Connecting")
-        UserDefaults.standard.set(deviceNameTextField.text!, forKey: "deviceName")
-        // Device connection code here
-        SVProgressHUD.showSuccess(withStatus: "Connected")
+        let deviceName = deviceNameTextField.text!
+        UserDefaults.standard.set(deviceName, forKey: "deviceName")
+        WCISCController.shared.connect(deviceName: deviceName) { error in
+            if error == nil {
+                SVProgressHUD.showSuccess(withStatus: "Connected")
+            } else {
+                SVProgressHUD.showError(withStatus: "Connection Error")
+            }
+        }
     }
+    
 }
 
 extension SettingsTableViewController: UITextFieldDelegate {

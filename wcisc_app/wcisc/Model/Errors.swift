@@ -18,3 +18,8 @@ enum BluetoothError: Error {
     case operationFailure
     case deviceNotConnected
 }
+
+enum WCISCControllerError: Error {
+    case controllerBusy
+    case wrongStartTime
+}

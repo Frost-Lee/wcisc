@@ -17,7 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UserDefaults.standard.register(defaults: [
-            "deviceName": "devicename"
+            "deviceName": "devicename",
+            "AutoInfusionConfiguration_startTime": Date(),
+            "AutoInfusionConfiguration_timeInterval": 1440,
+            "AutoInfusionConfiguration_dosage": 0,
+            "InfusionSafetyConfiguration_maxDailyDosage": 0
         ])
         return true
     }

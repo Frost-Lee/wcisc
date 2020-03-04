@@ -31,25 +31,11 @@ class DataManager: NSObject {
         - configuration: The `InfusionConfiguration` object to be updated.
         - completion: The completion handler. `Error` will be `nil` if the operation is done successfully.
      */
-    func updateInfusionConfiguration(configuration: InfusionConfiguration, completion: ((Error?) -> ())?) {
-        do {
-            let fetchRequest: NSFetchRequest = ManagedInfusionConfiguration.fetchRequest()
-            let managedConfigurations = (try context.fetch(fetchRequest)) as [ManagedInfusionConfiguration]
-            for configuration in managedConfigurations {
-                context.delete(configuration)
-            }
-        } catch {
-            completion?(DataStorageError.fetchFailure)
-        }
-        do {
-            let entity = NSEntityDescription.entity(forEntityName: "ManagedInfusionConfiguration", in: context)
-            let newConfiguration = ManagedInfusionConfiguration(entity: entity!, insertInto: context)
-            newConfiguration.initialize(with: configuration)
-            try context.save()
-            completion?(nil)
-        } catch {
-            completion?(DataStorageError.saveFailure)
-        }
+    func updateInfusionConfiguration(configuration: AutoInfusionConfiguration, completion: ((Error?) -> ())?) {
+        UserDefaults.standard.set(configuration.startTime, forKey: "AutoInfusionConfiguration_startTime")
+        UserDefaults.standard.set(configuration.timeInterval, forKey: "AutoInfusionConfiguration_timeInterval")
+        UserDefaults.standard.set(configuration.dosage, forKey: "AutoInfusionConfiguration_dosage")
+        completion?(nil)
     }
     
     /**
@@ -59,14 +45,27 @@ class DataManager: NSObject {
      - Parameters:
         - completion: The completion handler. `Error` will be `nil` if the operation is done successfully.
      */
-    func getInfusionConfiguration(completion: (((InfusionConfiguration?, Error?) -> ()))?) {
-        let fetchRequest: NSFetchRequest = ManagedInfusionConfiguration.fetchRequest()
-        do {
-            let managedConfigurations = (try context.fetch(fetchRequest)) as [ManagedInfusionConfiguration]
-            completion?(managedConfigurations.map({$0.export()}).first, nil)
-        } catch {
-            completion?(nil, DataStorageError.fetchFailure)
-        }
+    func getInfusionConfiguration(completion: (((AutoInfusionConfiguration?, Error?) -> ()))?) {
+        let configuration = AutoInfusionConfiguration(
+            startTime: UserDefaults.standard.object(forKey: "AutoInfusionConfiguration_startTime") as! Date,
+            timeInterval: UserDefaults.standard.double(forKey: "AutoInfusionConfiguration_timeInterval"),
+            dosage: UserDefaults.standard.double(forKey: "AutoInfusionConfiguration_dosage")
+        )
+        completion?(configuration, nil)
+    }
+    
+    // MARK: `InfusionSafetyConfiguration` operations.
+    
+    func updateInfusionSafetyConfiguration(configuration: InfusionSafetyConfiguration, completion: ((Error?) -> ())?) {
+        UserDefaults.standard.set(configuration.maxDailyDosage, forKey: "InfusionSafetyConfiguration_maxDailyDosage")
+        completion?(nil)
+    }
+    
+    func getInfusionSafetyConfiguration(completion: (((InfusionSafetyConfiguration?, Error?) -> ()))?) {
+        let configuration = InfusionSafetyConfiguration(
+            maxDailyDosage: UserDefaults.standard.double(forKey: "InfusionSafetyConfiguration_maxDailyDosage")
+        )
+        completion?(configuration, nil)
     }
     
     // MARK: `InfusionLog` operations.

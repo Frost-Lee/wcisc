@@ -18,22 +18,13 @@ protocol BluetoothManagerDelegate {
         - state: The current state of the central device.
      */
     func centralStateUnavailable(state: CBManagerState)
-    /**
-     Notify the delegate that the infusion process has finished, details about the infusion process is included
-        in the parameter.
-     
-     - parameters:
-        - log: The infusion log data.
-     */
-    func infusionFinished(log: InfusionLog)
+    func valueUpdated(value: String)
 }
 
 enum BluetoothManagerState {
     case clear
     case waitingConnection
-    case sendingConfiguration
-    case waitingInfusionResult
-    case sendingStopSignal
+    case waitingWrite
 }
 
 class BluetoothManager: NSObject {
@@ -53,7 +44,7 @@ class BluetoothManager: NSObject {
     private var txCharacter: CBCharacteristic?
     /// RX is used for notifying.
     private var rxCharacter: CBCharacteristic?
-    private var deviceConnected: Bool {
+    var deviceConnected: Bool {
         get {
             return rxCharacter != nil && txCharacter != nil
         }
@@ -103,54 +94,12 @@ class BluetoothManager: NSObject {
         startTimeoutTimer()
     }
     
-    /**
-     Synchronize the `InfusionConfiguration` to the bluetooth device.
-     
-     - parameters:
-        - configuration: The `InfusionConfiguration` object to be synchronized.
-        - completion: The completion handler. `Error` will be `nil` if the operation is done successfully.
-     */
-    func synchronizeConfiguration(configuration: InfusionConfiguration, completion: ((Error?) -> ())?) {
+    func writeValue(value: String, completion: ((Error?) -> ())?) {
         guard state == .clear else {completion?(BluetoothError.managerBusy);return}
         guard deviceConnected else {completion?(BluetoothError.deviceNotConnected);return}
-        setPendingJob(state: .sendingConfiguration, completion: completion, parameter: configuration)
-        let configurationString = String(
-            format: "c:%.2f;%.2f;%.2f",
-            configuration.minInfusionInterval,
-            configuration.maxSingleDosage,
-            configuration.maxDailyDosage
-        )
+        setPendingJob(state: .waitingWrite, completion: completion, parameter: value)
         // The maximum buffer size of the external device is 20, see https://learn.adafruit.com/introducing-the-adafruit-bluefruit-le-uart-friend/ble-gatt
-        peripheral?.writeValue(configurationString.data(using: .ascii)!, for: txCharacter!, type: .withResponse)
-        startTimeoutTimer()
-    }
-    
-    /**
-     Send a start signal to the device to indicate it to start an infusion procedure.
-     
-     - parameters:
-        - completion: The completion handler. `Error` will be `nil` if the operation is done successfully.
-     */
-    func sendStartSignal(completion: ((Error?) -> ())?) {
-        guard state == .clear else {completion?(BluetoothError.managerBusy);return}
-        guard deviceConnected else {completion?(BluetoothError.deviceNotConnected);return}
-        setPendingJob(state: .waitingInfusionResult, completion: completion, parameter: nil)
-        peripheral?.writeValue("b:".data(using: .ascii)!, for: txCharacter!, type: .withResponse)
-        startTimeoutTimer()
-    }
-    
-    /**
-     Send a stop signal to abort the infusion and clear the configuration on the device. This method is designed
-        for emergency case.
-     
-     - parameters:
-        - completion: The completion handler. `Error` will be `nil` if the operation is done successfully.
-     */
-    func sendStopSignal(completion: ((Error?) -> ())?) {
-        guard state == .clear else {completion?(BluetoothError.managerBusy);return}
-        guard deviceConnected else {completion?(BluetoothError.deviceNotConnected);return}
-        setPendingJob(state: .sendingStopSignal, completion: completion, parameter: nil)
-        peripheral?.writeValue("s:".data(using: .ascii)!, for: txCharacter!, type: .withResponse)
+        peripheral?.writeValue(value.data(using: .ascii)!, for: txCharacter!, type: .withResponse)
         startTimeoutTimer()
     }
     
@@ -285,15 +234,8 @@ extension BluetoothManager: CBPeripheralDelegate {
         didWriteValueFor characteristic: CBCharacteristic,
         error: Error?
     ) {
-        switch state {
-        case .sendingConfiguration:
+        if state == .waitingWrite {
             resetPendingJob(successful: error == nil)
-        case .waitingInfusionResult:
-            break
-        case .sendingStopSignal:
-            resetPendingJob(successful: true)
-        default:
-            break
         }
     }
     
@@ -302,15 +244,6 @@ extension BluetoothManager: CBPeripheralDelegate {
         didUpdateValueFor characteristic: CBCharacteristic,
         error: Error?
     ) {
-        let value = String(data: characteristic.value!, encoding: .ascii)!
-        switch value.first {
-        case "l":
-            let tuple = value.split(separator: ":")[1].split(separator: ";").map({Double($0)!})
-            let log = InfusionLog(timestamp: Date(), dosage: tuple[0], status: InfusionStatus(rawValue: Int(tuple[1]))!)
-            resetPendingJob(successful: true)
-            delegate?.infusionFinished(log: log)
-        default:
-            break
-        }
+        delegate?.valueUpdated(value: String(data: characteristic.value!, encoding: .ascii)!)
     }
 }
