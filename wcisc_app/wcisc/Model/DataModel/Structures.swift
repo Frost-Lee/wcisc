@@ -10,26 +10,28 @@ import Foundation
 
 enum InfusionStatus: Int {
     case done = 0
-    case disruptedInfusionInterval
-    case exceededMaximumSingleDosage
-    case exceededMaximumDailyDosage
+    case externalDeviceNotAligned
+    case cannotTriggerInjection
     case pumpError
     
     func indicateText() -> String {
         switch self {
         case .done:
             return "Infusion finished"
-        case .disruptedInfusionInterval:
-            return "Disrupted infusion interval"
-        case .exceededMaximumSingleDosage:
-            return "Maximum single dosage exceeded"
-        case .exceededMaximumDailyDosage:
-            return "Maximum daily dosage exceeded"
+        case .externalDeviceNotAligned:
+            return "External device not aligned"
+        case .cannotTriggerInjection:
+            return "External device cannot trigger injection"
         case .pumpError:
             return "Pump needs refill"
         }
     }
 }
+
+/**
+ - TODO:
+    new data storage logic is expected for `InfusionSafetyConfiguration`.
+ */
 
 struct InfusionSafetyConfiguration {
     var maxDailyDosage: Double

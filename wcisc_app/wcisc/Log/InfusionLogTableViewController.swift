@@ -23,6 +23,10 @@ class InfusionLogTableViewController: UITableViewController {
         super.viewDidLoad()
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(fetchInfusionLogs), for: .valueChanged)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadInfusionLogs()
     }
     
@@ -34,7 +38,7 @@ class InfusionLogTableViewController: UITableViewController {
     }
     
     @objc private func fetchInfusionLogs() {
-        // Refresh code here
+        loadInfusionLogs()
         refreshControl?.endRefreshing()
     }
 

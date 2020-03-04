@@ -20,7 +20,8 @@ class InfusionConfigurationTableViewController: UITableViewController {
     @IBOutlet weak var timeIntervalTextField: UITextField!
     @IBOutlet weak var maxDailyDosageTextField: UITextField!
     
-    static var delegate: InfusionConfigurationDelegate?
+    static var sharedInstance: InfusionConfigurationTableViewController!
+    var delegate: InfusionConfigurationDelegate?
     
     var isAutoInfuse: Bool {
         get {
@@ -61,13 +62,14 @@ class InfusionConfigurationTableViewController: UITableViewController {
     var isAvailable: Bool = false {
         didSet {
             if isAvailable != oldValue {
-                InfusionConfigurationTableViewController.delegate?.availableStateDidChange(available: isAvailable)
+                delegate?.availableStateDidChange(available: isAvailable)
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        InfusionConfigurationTableViewController.sharedInstance = self
         startTimePicker.minimumDate = Date()
     }
 
@@ -78,11 +80,16 @@ class InfusionConfigurationTableViewController: UITableViewController {
         updateAvailableStatus()
     }
     
+    @IBAction func inputChanged(_ sender: Any) {
+        print("Input changed called")
+        updateAvailableStatus()
+    }
+    
     private func updateAvailableStatus() {
         if autoInfuseSwitch.isOn {
-            isAvailable = infuseConfiguration != nil
+            isAvailable = infuseConfiguration != nil && safetyConfiguration != nil
         } else {
-            isAvailable = dosage != nil
+            isAvailable = dosage != nil && safetyConfiguration != nil
         }
     }
 }

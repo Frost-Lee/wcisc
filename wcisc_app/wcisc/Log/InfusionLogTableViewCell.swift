@@ -23,7 +23,7 @@ class InfusionLogTableViewCell: UITableViewCell {
     
     private func setInfusionLog() {
         statusLabel.text = infusionLog!.status.indicateText()
-        timestampLabel.text = infusionLog!.timestamp.formattedString(with: "yyyy.MM.dd HH:mm ZZZ")
+        timestampLabel.text = infusionLog!.timestamp.formattedString(with: "yyyy.MM.dd HH:mm  v")
         dosageLabel.text = infusionLog!.dosage.unitString()
         if infusionLog!.status == .done {
             statusLabel.textColor = .systemBlue

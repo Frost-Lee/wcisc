@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreBluetooth
 import SVProgressHUD
 
 class InfusionViewController: UIViewController {
@@ -18,6 +19,7 @@ class InfusionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        wciscController.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,8 +31,8 @@ class InfusionViewController: UIViewController {
         super.prepare(for: segue, sender: sender)
         switch segue.identifier {
         case "showInfusionStartViewController":
-            let navigationController = segue.destination as! UINavigationController
-            navigationController.presentationController?.delegate = self
+            let vc = (segue.destination as! UINavigationController).topViewController! as! InfusionStartViewController
+            vc.delegate = self
         default:
             break
         }
@@ -58,8 +60,37 @@ class InfusionViewController: UIViewController {
     }
 }
 
-extension InfusionViewController: UIAdaptivePresentationControllerDelegate {
-    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+extension InfusionViewController: InfusionStartDelegate {
+    func controllerWillDismiss() {
         reloadData()
+    }
+}
+
+extension InfusionViewController: WCISCControllerDelegate {
+    func centralStateUnavailable(state: CBManagerState) {
+        let alertController = UIAlertController(
+            title: "Connection Error",
+            message: "Cannot connect to peripheral device, error code: \(state.rawValue).",
+            preferredStyle: .alert
+        )
+        alertController.addAction(UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: {alert in alertController.dismiss(animated: true, completion: nil)}
+        ))
+    }
+    
+    func automaticInfusionFailed(status: InfusionStatus) {
+        let alertController = UIAlertController(
+            title: "Auto-Infusion Failed",
+            message: status.indicateText(),
+            preferredStyle: .alert
+        )
+        alertController.addAction(UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: {alert in alertController.dismiss(animated: true, completion: nil)}
+        ))
+        present(alertController, animated: true, completion: nil)
     }
 }
