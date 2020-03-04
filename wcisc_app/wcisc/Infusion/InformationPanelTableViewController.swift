@@ -45,7 +45,7 @@ class InformationPanelTableViewController: UITableViewController {
             injectionScheduledIndicatorImageView.tintColor = .systemGreen
             dataManager.getInfusionConfiguration() { configuration, error in
                 guard error == nil else {return}
-                self.autoInfusionStartTimeLabel.text = configuration?.startTime.formattedString(with: "yyyy.MM.dd HH:mm")
+                self.autoInfusionStartTimeLabel.text = configuration?.startTime.formattedString(with: "yyyy.MM.dd HH:mm ZZZ")
                 self.autoInfusionDosageLabel.text = String(format: "%.1f", configuration!.dosage)
                 self.autoInfusionIntervalLabel.text = String(format: "%.0f", configuration!.timeInterval)
             }
