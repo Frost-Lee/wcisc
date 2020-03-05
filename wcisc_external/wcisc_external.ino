@@ -19,9 +19,12 @@
 #include "Adafruit_BluefruitLE_UART.h"
 
 #include "BluefruitConfig.h"
+extern "C" {
+    #include "model.h"
+}
 
 #if SOFTWARE_SERIAL_AVAILABLE
-  #include <SoftwareSerial.h>
+    #include <SoftwareSerial.h>
 #endif
 
 /*=========================================================================
@@ -55,9 +58,9 @@
                               "DISABLE" or "MODE" or "BLEUART" or
                               "HWUART"  or "SPI"  or "MANUAL"
     -----------------------------------------------------------------------*/
-    #define FACTORYRESET_ENABLE         1
-    #define MINIMUM_FIRMWARE_VERSION    "0.6.6"
-    #define MODE_LED_BEHAVIOUR          "MODE"
+#define FACTORYRESET_ENABLE         1
+#define MINIMUM_FIRMWARE_VERSION    "0.6.6"
+#define MODE_LED_BEHAVIOUR          "MODE"
 /*=========================================================================*/
 
 // Create the bluefruit object, either software serial...uncomment these lines
@@ -65,24 +68,14 @@
 SoftwareSerial bluefruitSS = SoftwareSerial(BLUEFRUIT_SWUART_TXD_PIN, BLUEFRUIT_SWUART_RXD_PIN);
 Adafruit_BluefruitLE_UART ble(bluefruitSS, BLUEFRUIT_UART_MODE_PIN, BLUEFRUIT_UART_CTS_PIN, BLUEFRUIT_UART_RTS_PIN);
 
-enum Device_State {
-  Not_Initialized,
-  Initialized,
-  Injecting
-};
-
-enum Controller_Signal {
-  Configuration,
-  Start,
-  Stop
-};
-
-enum Device_State deviceState = Not_Initialized;
+void infuse(float dosage);
+void send(char* message);
+void stop();
 
 // A small helper
 void error(const __FlashStringHelper*err) {
-  Serial.println(err);
-  while (1);
+    Serial.println(err);
+    while (1);
 }
 
 /**************************************************************************/
@@ -92,8 +85,8 @@ void error(const __FlashStringHelper*err) {
 */
 /**************************************************************************/
 void setup(void) {
-  basicSetup();
-  deviceState = Not_Initialized;
+    basicSetup();
+    initialize(infuse, send, stop);
 }
 
 /**************************************************************************/
@@ -101,52 +94,66 @@ void setup(void) {
     @brief  Constantly poll for new command or response data
 */
 /**************************************************************************/
+char* pendingMessage = NULL;
 void loop(void) {
-  if (Serial.available()) {
-    char n, inputs[BUFSIZE+1];
-    n = Serial.readBytes(inputs, BUFSIZE);
-    inputs[n] = '\0';
-    ble.print(inputs);
-  } else if (ble.available()) {
-    char inputBuffer[BUFSIZE];
-    readInput(inputBuffer, BUFSIZE);
-    Serial.print(inputBuffer);
-  }
+    if (pendingMessage != NULL) {
+        Serial.print(pendingMessage);
+        ble.print(pendingMessage);
+        free(pendingMessage);
+        pendingMessage = NULL;
+    } else if (ble.available()) {
+        char inputBuffer[BUFSIZE];
+        readInput(inputBuffer, BUFSIZE);
+        execute(inputBuffer);
+        Serial.print(inputBuffer);
+    }
 }
 
 
 void basicSetup() {
-  while (!Serial);
-  delay(500);
-  Serial.begin(115200);
-  if (!ble.begin(VERBOSE_MODE)) {
-    error(F("Couldn't find Bluefruit, make sure it's in CoMmanD mode & check wiring?"));
-  }
-  Serial.println( F("OK!") );
-  if (FACTORYRESET_ENABLE) {
-    if (!ble.factoryReset()) {
-      error(F("Couldn't factory reset"));
+    while (!Serial);
+    delay(500);
+    Serial.begin(115200);
+    if (!ble.begin(VERBOSE_MODE)) {
+        error(F("Couldn't find Bluefruit, make sure it's in CoMmanD mode & check wiring?"));
     }
-  }
-  ble.echo(false);
-  ble.info();
-  ble.verbose(false);
-  while (!ble.isConnected()) {
-      delay(500);
-  }
-  if (ble.isVersionAtLeast(MINIMUM_FIRMWARE_VERSION)) {
-    ble.sendCommandCheckOK("AT+HWModeLED=" MODE_LED_BEHAVIOUR);
-  }
-  ble.setMode(BLUEFRUIT_MODE_DATA);
+    Serial.println( F("OK!") );
+    if (FACTORYRESET_ENABLE) {
+        if (!ble.factoryReset()) {
+            error(F("Couldn't factory reset"));
+        }
+    }
+    ble.echo(false);
+    ble.info();
+    ble.verbose(false);
+    while (!ble.isConnected()) {
+        delay(500);
+    }
+    if (ble.isVersionAtLeast(MINIMUM_FIRMWARE_VERSION)) {
+        ble.sendCommandCheckOK("AT+HWModeLED=" MODE_LED_BEHAVIOUR);
+    }
+    ble.setMode(BLUEFRUIT_MODE_DATA);
 }
 
 void readInput(char* buffer, int bufferSize) {
-  int inputLength = 0;
-  while (ble.available() && inputLength < bufferSize - 1) {
-    char inputChar = ble.read();
-    Serial.println(inputChar);
-    buffer[inputLength ++] = inputChar;
-  }
-  buffer[inputLength] = '\0';
-  // check code here
+    int inputLength = 0;
+    while (ble.available() && inputLength < bufferSize - 1) {
+        char inputChar = ble.read();
+        buffer[inputLength ++] = inputChar;
+    }
+    buffer[inputLength] = '\0';
+}
+
+// - MARK: Model Delegate methods
+void infuse(float dosage) {
+    // remember to call the following line and reply the status code.
+    notify(0, dosage);
+}
+
+void send(char* message) {
+    pendingMessage = message;
+}
+
+void stop() {
+    // stop the pump whatever it costs
 }
