@@ -10,11 +10,11 @@ The application and the external device adops the following messages for communi
 
 | Description                                        | Format                                                       |
 | -------------------------------------------------- | ------------------------------------------------------------ |
-| app -> configuration -> external device            | `c:<min infusion interval>;<max single dosage>;<max daily dosage>` |
-| app -> start signal (automatic) -> external device | `a:<dosage>`                                                 |
-| app -> start signal (manual) -> external device    | `i:<dosage>`                                                 |
-| app -> stop signal -> external device              | `s:`                                                         |
-| external device -> infusion log -> app             | `l:<dosage>;<status>`                                        |
+| app -> configuration -> external device            | `"c:%.2f;%.2f", configuration.timeInterval, configuration.dosage` |
+| app -> start signal (automatic) -> external device | `"a:%.2f", configuration.dosage`                             |
+| app -> start signal (manual) -> external device    | `"i:%.2f", dosage`                                           |
+| app -> stop signal -> external device              | `"s:"`                                                       |
+| external device -> infusion log -> app             | `"l:%d;%d", (int)dosage, status`                             |
 
 The `status` given by external device have the following meaning:
 
@@ -27,5 +27,5 @@ The `status` given by external device have the following meaning:
 
 - [ ] Move the clock trigger from application to external device, so that the application runs in background, the external device runs automatically and send log data to app every time.
 - [ ] Enable the application to fetch configuration and status data from external device, so that it enables multiple application instances to control the same external device.
-- [ ] Logic on application that checks the configuration safety.
+- [x] Logic on application that checks the configuration safety.
 - [ ] Prevent malicious connection to the external device.
