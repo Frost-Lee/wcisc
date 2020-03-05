@@ -36,6 +36,8 @@ class WCISCController: NSObject {
         }
     }
     
+    private var timer: Timer?
+    
     override init() {
         super.init()
         BluetoothManager.shared.delegate = self
@@ -127,6 +129,7 @@ class WCISCController: NSObject {
             }
         }
         RunLoop.main.add(timer, forMode: .common)
+        self.timer = timer
         completion?(nil)
     }
     
@@ -141,6 +144,7 @@ class WCISCController: NSObject {
     }
     
     func stopInfusion(completion: ((Error?) -> ())?) {
+        timer?.invalidate()
         BluetoothManager.shared.writeValue(value: "s:") { error in
             if error == nil {
                 self.state = .clear
